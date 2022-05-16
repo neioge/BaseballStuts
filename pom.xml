@@ -8,6 +8,11 @@
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.8.0.2131</version>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
@@ -24,26 +29,33 @@
       </plugin>
     </plugins>
   </build>
-    <dependencies>
-      <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core</artifactId>
-          <version>5.2.13.Final</version>
-      </dependency>
-      <dependency>
-          <groupId>com.oracle.jdbc</groupId>
-          <artifactId>ojdbc8</artifactId>
-          <version>1.8.0</version>
-      </dependency>
-      <dependency>
-      	<groupId>org.apache.taglibs</groupId>
-      	<artifactId>taglibs-standard-impl</artifactId>
-      	<version>1.2.5</version>
-      </dependency>
-      <dependency>
-      	<groupId>javax.servlet.jsp.jstl</groupId>
-      	<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-      	<version>1.2.1</version>
-      </dependency>
-    </dependencies>
+  <properties>
+    <!-- SonarQube -->
+    <sonar.projectKey>BaseballStuts</sonar.projectKey>
+    <sonar.host.url>http://localhost:9001</sonar.host.url>
+    <sonar.login>BaseballStuts_Token</sonar.login>
+    <sonar.login>fc801b497c768a2c1ee7df08f4fe2249e7281465</sonar.login>
+  </properties>
+  <dependencies>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.2.13.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>com.oracle.jdbc</groupId>
+        <artifactId>ojdbc8</artifactId>
+        <version>1.8.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.taglibs</groupId>
+        <artifactId>taglibs-standard-impl</artifactId>
+        <version>1.2.5</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet.jsp.jstl</groupId>
+        <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+        <version>1.2.1</version>
+    </dependency>
+  </dependencies>
 </project>
