@@ -2,15 +2,28 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(
+        name = "getAllStuts",
+        query = "SELECT s FROM StutsCen AS s ORDER BY s.ID DESC"
+    )
+})
 @Table(name="stuts_cen")
 public class StutsCen {
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "seqBaseballStuts")
     private Integer ID;
 
     @Column(name = "YEAR", nullable = false)
@@ -20,7 +33,7 @@ public class StutsCen {
     private String PLAYERNAME;
 
     @Column(name = "AVG", nullable = false)
-    private Integer AVG;
+    private Double AVG;
 
     @Column(name = "HOMERUN", nullable = false)
     private Integer HOMERUN;
@@ -29,7 +42,7 @@ public class StutsCen {
     private Integer RBI;
 
     @Column(name = "OPS", nullable = false)
-    private Integer OPS;
+    private Double OPS;
 
     @Column(name = "STOLENBASE", nullable = false)
     private Integer STOLENBASE;
@@ -58,11 +71,11 @@ public class StutsCen {
         this.PLAYERNAME = pLAYERNAME;
     }
 
-    public Integer getAVG() {
+    public Double getAVG() {
         return AVG;
     }
 
-    public void setAVG(Integer aVG) {
+    public void setAVG(Double aVG) {
         this.AVG = aVG;
     }
 
@@ -82,11 +95,11 @@ public class StutsCen {
         this.RBI = rBI;
     }
 
-    public Integer getOPS() {
+    public Double getOPS() {
         return OPS;
     }
 
-    public void setOPS(Integer oPS) {
+    public void setOPS(Double oPS) {
         this.OPS = oPS;
     }
 

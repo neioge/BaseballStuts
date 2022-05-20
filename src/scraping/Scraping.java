@@ -1,7 +1,5 @@
 package scraping;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,18 +8,22 @@ import java.time.YearMonth;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManager;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import log.OriginalLogger;
+import models.StutsCen;
+import util.DBUtil;
 
 public class Scraping {
-    public void GetDataFromURL (String targetURL) throws IOException{
+    public static void GetDataFromURL () throws IOException{
         // 変数定義
         int systemYear = YearMonth.now().getYear(); // 今年
-        Document allYearHtml = (Document) Jsoup.connect(targetURL).get(); // Document形式のスクレイピング対象のページ
+        Document allYearHtml = (Document) Jsoup.connect("http://www.baseball-reference.com/register/league.cgi?code=JPPL&class=Fgn").get(); // Document形式のスクレイピング対象のページ
         Elements linkAllyaerTable = allYearHtml.select("#lg_history tbody");  // 毎年度、全チームの情報が入ったテーブル
 
         // ロガー
@@ -34,7 +36,13 @@ public class Scraping {
             for (int yearID = 0; yearID < (systemYear - 1950 + 1); yearID++){
                 // 変数定義
                 int targetYear = (systemYear - yearID); // データ取得対象年度
+                Elements targetYearElements = linkAllyaerTable.get(0).select("th"); // YearID年度とリンクを入れるリスト
                 Elements teamElements = linkAllyaerTable.get(0).select("td").get(0).select("a"); // YearID年度、全チームの名前とリンクを入れるリスト
+
+                // debug
+                if (yearID == 1){
+                    break;
+                }
 
                 Path outputPath = Paths.get("c:\\pleiades\\workspace\\ScrapingTest\\output\\" + targetYear);
 
@@ -55,28 +63,64 @@ public class Scraping {
                     Elements playersStutsTable = teamHtml.select("#team_batting tbody tr");  // 各チーム、全選手の情報が入ったテーブル
 
                     try {
-                        File outputFile = new File("c:\\pleiades\\workspace\\ScrapingTest\\output\\" + targetYear + "\\"  + teamName + ".csv");
-                        FileWriter outputFileWriter = new FileWriter(outputFile);
-                        outputFileWriter.write("Name" + "," + "Average" + "," + "Homerun" + "," + "RBI" + "," + "OPS" + "," + "StolenBase" + "\r\n");
-                        for(Element targetPlayerElements : playersStutsTable){
-                            Elements targetPlayer_tds = targetPlayerElements.select("td"); // 選手のtdを格納するリスト
-                            String targetPlayerName = targetPlayer_tds.get(0).select("a").get(0).ownText();
-                            String targetPlayerAvg = "0" + targetPlayer_tds.get(15).ownText();
-                            String targetPlayerHR = targetPlayer_tds.get(9).ownText();
-                            String targetPlayerRBI = targetPlayer_tds.get(10).ownText();
-                            String targetPlayerOPS = "0" + targetPlayer_tds.get(18).ownText();
-                            String targetPlayerSB = targetPlayer_tds.get(11).ownText();
-                            outputFileWriter.write(targetPlayerName + "," + targetPlayerAvg + "," + targetPlayerHR + "," + targetPlayerRBI + "," + targetPlayerOPS + "," + targetPlayerSB + "\r\n");
 
-                            logger.log(Level.INFO, "出力成功" + targetPlayerName);
+                        for(Element targetPlayerElements : playersStutsTable){
+                            EntityManager em = DBUtil.createEntityManager();
+
+                            // Modelを生成
+                            StutsCen stutsCen = new StutsCen();
+
+                            Elements targetPlayer_tds = targetPlayerElements.select("td"); // 選手のtdを格納するリスト
+
+                            stutsCen.setYEAR( Integer.parseInt( targetYearElements.select("a").get(yearID).ownText() ) );
+                            stutsCen.setPLAYERNAME(targetPlayer_tds.get(0).select("a").get(0).ownText());
+
+                            String strAVG;
+                            if ( targetPlayer_tds.get(15).ownText() == "" || targetPlayer_tds.get(15).ownText() == null || targetPlayer_tds.get(15).ownText().isEmpty() ){
+                                strAVG = "0";
+                            }else {
+                                strAVG = targetPlayer_tds.get(15).ownText();
+                                        if ( strAVG.startsWith(".") ) {
+                                            strAVG = "0" + strAVG;
+                                        }
+                            }
+                            stutsCen.setAVG( Double.valueOf( strAVG ) );
+
+                            stutsCen.setHOMERUN( Integer.parseInt( targetPlayer_tds.get(9).ownText() ) );
+                            stutsCen.setRBI( Integer.parseInt( targetPlayer_tds.get(10).ownText() ) );
+
+                            String strOPS;
+                            if ( targetPlayer_tds.get(18).ownText() == "" || targetPlayer_tds.get(18).ownText() == null || targetPlayer_tds.get(18).ownText().isEmpty()){
+                                strOPS = "0";
+                            }else {
+                                strOPS = targetPlayer_tds.get(18).ownText();
+                                        if ( strOPS.startsWith(".") ) {
+                                            strOPS = "0" + strOPS;
+                                        }
+                            }
+                            stutsCen.setOPS( Double.valueOf( strOPS ) );
+
+                            stutsCen.setSTOLENBASE( Integer.parseInt( targetPlayer_tds.get(11).ownText() ) );
+
+                            logger.log(Level.INFO, "出力成功 : " + teamName + " : " + stutsCen.getPLAYERNAME());
+                            System.out.println(strAVG + " : " + strOPS);
+
+                            // データベースに保存
+                            em.getTransaction().begin();
+                            em.persist(stutsCen);
+                            em.getTransaction().commit();
+                            em.close();
+                            logger.log(Level.INFO, stutsCen.getID().toString());
                         }
-                        outputFileWriter.close();
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
+
+
 
         }catch(IOException e){
             System.out.println(e);
