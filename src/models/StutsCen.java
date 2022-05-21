@@ -22,8 +22,8 @@ public class StutsCen {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "seqBaseballStuts")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BASEBALLSTUTS_SEQ")
+    @SequenceGenerator(name = "BASEBALLSTUTS_SEQ", sequenceName = "BASEBALLSTUTS_SEQ", allocationSize = 1)
     private Integer ID;
 
     @Column(name = "YEAR", nullable = false)

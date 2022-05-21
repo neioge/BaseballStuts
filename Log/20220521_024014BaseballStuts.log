@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414430</millis>
+  <sequence>74</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414431</millis>
+  <sequence>75</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : ChibaLotteMarines : Yudai Fujioka</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414599</millis>
+  <sequence>79</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414600</millis>
+  <sequence>80</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : FukuokaSoftbankHawks : Alfredo Despaigne</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414862</millis>
+  <sequence>84</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:14</date>
+  <millis>1653068414862</millis>
+  <sequence>85</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : HokkaidoNipponHamFighters : Arismendy Alcantara</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:15</date>
+  <millis>1653068415641</millis>
+  <sequence>89</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:15</date>
+  <millis>1653068415641</millis>
+  <sequence>90</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : OrixBuffaloes : Ryoichi Adachi</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:16</date>
+  <millis>1653068416042</millis>
+  <sequence>94</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:16</date>
+  <millis>1653068416042</millis>
+  <sequence>95</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : SaitamaSeibuLions : Sosuke Genda</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:16</date>
+  <millis>1653068416191</millis>
+  <sequence>99</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>String</message>
+</record>
+<record>
+  <date>2022-05-21T02:40:16</date>
+  <millis>1653068416192</millis>
+  <sequence>100</sequence>
+  <logger>sample log</logger>
+  <level>INFO</level>
+  <class>scraping.Scraping</class>
+  <method>GetDataFromURL</method>
+  <thread>21</thread>
+  <message>出力成功 : TohokuRakutenGoldenEagles : Ginji Akaminai</message>
+</record>
