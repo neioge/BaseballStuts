@@ -35,13 +35,15 @@ public class Scraping {
         try{
 
             // 年度で繰り返し
-            for (int yearCounter = 2020; yearCounter < systemYear; yearCounter++){
+            for (int yearCounter = 1950; yearCounter < systemYear; yearCounter++){
                 // 変数定義
                 int targetYearID = systemYear - yearCounter; // 取得対象年の順番
 
-//                if ( linkAllyaerTable.get(0).select("tr").get(targetYearID) ){
-//                    continue;
-//                  }
+                // 当サイトの表は15年ごとにヘッダーを挟んでいる。飛ばすための処理。
+                String checkYear = linkAllyaerTable.get(0).select("tr").get(targetYearID).select("th").get(0).ownText();
+                if ( checkYear.equals("Year") ){
+                    continue;
+                 }
 
                 Elements targetYearElements = linkAllyaerTable.get(0).select("tr").get(targetYearID).select("th"); // YearID年度とリンクを入れるリスト
                 Elements teamElements = linkAllyaerTable.get(0).select("tr").get(targetYearID).select("td").get(0).select("a"); // YearID年度、全チームの名前とリンクを入れるリスト
@@ -67,7 +69,7 @@ public class Scraping {
 
                             Elements targetPlayer_tds = targetPlayerElements.select("td"); // 選手のtdを格納するリスト
 
-                            stutsCen.setYEAR( Integer.parseInt( targetYearElements.select("a").get(targetYearID).ownText() ) );
+                            stutsCen.setYEAR( Integer.parseInt( targetYearElements.select("a").get(0).ownText() ) );
                             stutsCen.setPLAYERNAME(targetPlayer_tds.get(0).select("a").get(0).ownText());
                             String strAVG = "";
                             if ( targetPlayer_tds.get(15).ownText() == "" || targetPlayer_tds.get(15).ownText() == null || targetPlayer_tds.get(15).ownText().isEmpty() ){
